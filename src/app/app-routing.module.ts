@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AppCustomLayoutComponent } from './layout/app-custom-layout/app-custom-layout.component';
-
+import { RegisterComponent } from './modules/register/register.component';
+import { LoginComponent } from './modules/login/login.component';
 const routes: Routes = [
   {
     path: '',
@@ -20,6 +21,14 @@ const routes: Routes = [
         path: 'map',
         loadChildren: () => import('@modules/map/map.module').then((m) => m.MapModule),
       },
+      {
+        path: 'register', component: RegisterComponent,
+      }, 
+      {
+        path: 'login', component: LoginComponent,
+      },
+
+      
     ],
   },
 ];
