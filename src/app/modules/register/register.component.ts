@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CustomValidators } from './custom-validators';
-
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -13,7 +12,7 @@ export class RegisterComponent {
   constructor(private fb: FormBuilder) {
     this.frmSignup = this.createSignupForm();
   }
-  
+
   createSignupForm(): FormGroup {
     return this.fb.group(
       {
@@ -62,9 +61,11 @@ export class RegisterComponent {
       }
     );
   }
-  
   submit() {
-    this.frmSignup.valueChanges.subscribe(console.log);
+  console.log(this.frmSignup.value)
+  }
+  ngOnInit() {
+    this.frmSignup.valueChanges.subscribe(console.log)
   }
     
 }

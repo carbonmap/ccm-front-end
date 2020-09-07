@@ -8,14 +8,14 @@
         <form [formGroup]="frmSignup" (submit)="submit()">
           <div class="form-group">
             <label for="full_name" [ngClass]="frmSignup.controls['full_name'].invalid ? 'text-danger' : ''">Full Name</label>
-            <input id="full_name" formControlName="full_name" type="full_name" class="form-control" [ngClass]="frmSignup.controls['full_name'].invalid ? 'is-invalid' : ''">
+            <input id="full_name" placeholder="Tell us your name!" formControlName="full_name" type="full_name" class="form-control" [ngClass]="frmSignup.controls['full_name'].invalid ? 'is-invalid' : ''">
             <label class="text-danger" *ngIf="frmSignup.controls['full_name'].hasError('required')">
               Full Name is Required
             </label>
           </div>
           <div class="form-group">
             <label for="org" [ngClass]="frmSignup.controls['org'].invalid ? 'text-danger' : ''">Organisation</label>
-            <input id="org" formControlName="org" type="org" class="form-control" [ngClass]="frmSignup.controls['org'].invalid ? 'is-invalid' : ''">
+            <input id="org" placeholder="What organisation are you with?" formControlName="org" type="org" class="form-control" [ngClass]="frmSignup.controls['org'].invalid ? 'is-invalid' : ''">
             <label class="text-danger" *ngIf="frmSignup.controls['org'].hasError('required')">
               Organisation is Required
             </label>
@@ -33,7 +33,7 @@
           </div>
           <div class="form-group">
             <label for="email" [ngClass]="frmSignup.controls['email'].invalid ? 'text-danger' : ''">Email Address</label>
-            <input id="email" formControlName="email" type="email" class="form-control" [ngClass]="frmSignup.controls['email'].invalid ? 'is-invalid' : ''">
+            <input id="email" placeholder= "Enter your email address" formControlName="email" type="email" class="form-control" [ngClass]="frmSignup.controls['email'].invalid ? 'is-invalid' : ''">
             <label class="text-danger" *ngIf="frmSignup.controls['email'].hasError('required')">
               Email is Required
             </label>
@@ -43,7 +43,7 @@
           </div>
           <div class="form-group">
             <label for="password" [ngClass]="frmSignup.controls['password'].invalid ? 'text-danger' : ''">Password:</label>
-            <input id="password" formControlName="password" type="password" class="form-control" [ngClass]="frmSignup.controls['password'].invalid ? 'is-invalid' : ''">
+            <input id="password" placeholder="Choose a safe password!" formControlName="password" type="password" class="form-control" [ngClass]="frmSignup.controls['password'].invalid ? 'is-invalid' : ''">
             <!-- <label class="text-danger col" *ngIf="frmSignup.controls['password'].hasError('required')">
               Password is Required
             </label> -->
@@ -81,7 +81,7 @@
           <div class="form-group">
             <label for="confirmPassword" [ngClass]="frmSignup.controls['confirmPassword'].invalid ? 'text-danger' : ''">Confirm
               Password:</label>
-            <input id="confirmPassword" formControlName="confirmPassword" type="password" class="form-control"
+            <input id="confirmPassword" placeholder="Confirm your password" formControlName="confirmPassword" type="password" class="form-control"
               [ngClass]="frmSignup.controls['confirmPassword'].invalid ? 'is-invalid' : ''">
             <label class="text-danger" *ngIf="frmSignup.controls['confirmPassword'].hasError('required')">
               Password is Required
