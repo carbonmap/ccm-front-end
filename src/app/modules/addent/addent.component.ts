@@ -28,6 +28,10 @@ export class AddentComponent {
           Validators.compose([Validators.required])
         ],
         subent: [],
+        id: [
+          null,
+          Validators.compose([Validators.required])
+        ],
         location: [
           null,
           Validators.compose([Validators.required])

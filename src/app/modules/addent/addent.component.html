@@ -36,6 +36,13 @@
             </label>
           </div>
           <div class="form-group">
+            <label for="id" [ngClass]="frmEnt.controls['id'].invalid ? 'text-danger' : ''">Entity ID</label>          
+            <input id="id" placeholder="Please enter the Entity ID" formControlName="id" type="id" class="form-control" [ngClass]="frmEnt.controls['id'].invalid ? 'is-invalid' : ''">
+            <label class="text-danger" *ngIf="frmEnt.controls['id'].hasError('required')">
+              ID is Required
+            </label>
+          </div>
+          <div class="form-group">
             <label for="location" [ngClass]="frmEnt.controls['location'].invalid ? 'text-danger' : ''">Location</label>
             <input id="location" placeholder="Please enter Location" formControlName="location" type="location" class="form-control" [ngClass]="frmEnt.controls['location'].invalid ? 'is-invalid' : ''">
             <label class="text-danger" *ngIf="frmEnt.controls['location'].hasError('required')">
