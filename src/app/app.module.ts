@@ -8,8 +8,9 @@ import { HeaderComponent } from './layout/header/header.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RegisterComponent } from './modules/register/register.component';
 import { LoginComponent } from './modules/login/login.component';
+import { ComponentNameComponent } from './component-name/component-name.component';
 @NgModule({
-  declarations: [AppComponent, AppCustomLayoutComponent, HeaderComponent, RegisterComponent, LoginComponent],
+  declarations: [AppComponent, AppCustomLayoutComponent, HeaderComponent, RegisterComponent, LoginComponent, ComponentNameComponent],
   imports: [BrowserModule, FormsModule, ReactiveFormsModule, AppRoutingModule, NgbModule],
   providers: [],
   bootstrap: [AppComponent],

@@ -1,6 +1,7 @@
-import { Component, AfterViewInit } from '@angular/core';
-import * as L from 'leaflet';
 import * as $ from "jquery";
+import * as L from 'leaflet';
+
+import { AfterViewInit, Component } from '@angular/core';
 
 @Component({
   selector: 'app-map',

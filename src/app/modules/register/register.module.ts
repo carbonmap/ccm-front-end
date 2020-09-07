@@ -1,12 +1,15 @@
-import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
+import { NgModule } from '@angular/core';
 import { RegisterComponent } from './register.component';
 import { RegisterRoutingModule } from './register.routing';
-import { FormsModule, ReactiveFormsModule } from @angular/forms'; 
 
 @NgModule({
   declarations: [RegisterComponent],
-  imports: [CommonModule, RegisterRoutingModule, FormsModule, ReactiveFormsModule],
+  imports: [CommonModule, RegisterRoutingModule, FormsModule, ReactiveFormsModule, HttpClientModule],
+  providers: [],
   bootstrap: [RegisterComponent]
 })
-export class RegisterModule {}
+export class RegisterModule { }
