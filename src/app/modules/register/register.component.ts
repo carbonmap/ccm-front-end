@@ -2,8 +2,9 @@ import { Component, Injectable, NgModule } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { CustomValidators } from './custom-validators';
-import { HttpClient } from '@angular/common/http';
 import { HttpClientModule } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-register',
@@ -15,7 +16,7 @@ export class RegisterComponent {
   public frmSignup: FormGroup;
 
 
-  constructor(private fb: FormBuilder, private http: HttpClient) {
+  constructor(private fb: FormBuilder, private http: HttpClient, private router: Router) {
     this.frmSignup = this.createSignupForm();
   }
 
@@ -76,6 +77,6 @@ export class RegisterComponent {
       .subscribe((result) => {
         console.warn("result", result)
       })
-
+    this.router.navigateByUrl('/login')
   }
 }
