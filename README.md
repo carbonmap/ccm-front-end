@@ -2,6 +2,22 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.0.2.
 
+## TL;DR
+
+1. Install [Node.js](https://nodejs.org/en/)
+2. Install Angular CLI: 
+```
+npm install -g @angular/cli
+npm install --save-dev @angular-devkit/build-angular
+```
+3. Include all required node modules in the project
+```
+npm install
+```
+4. `ng build`
+5. `ng serve`
+
+
 ## Getting started
 
 1. Install [Node.js](https://nodejs.org/en/)
