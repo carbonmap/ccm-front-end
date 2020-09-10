@@ -15,6 +15,7 @@ import { Router } from "@angular/router";
 export class RegisterComponent {
   public frmSignup: FormGroup;
 
+  json;
 
   constructor(private fb: FormBuilder, private http: HttpClient, private router: Router) {
     this.frmSignup = this.createSignupForm();
@@ -75,8 +76,9 @@ export class RegisterComponent {
     console.log(registrationData)
     this.http.post("http://127.0.0.1:5000/register", registrationData)
       .subscribe((result) => {
-        console.warn("result", result)
+        console.log("result", result)
+        this.json = JSON.stringify(result)
       })
-    this.router.navigateByUrl('/login')
+    //this.router.navigateByUrl('/login')
   }
 }
