@@ -10,12 +10,13 @@ import { RegisterComponent } from './modules/register/register.component';
 import { LoginComponent } from './modules/login/login.component';
 import { ComponentNameComponent } from './component-name/component-name.component';
 import { HttpClientModule } from '@angular/common/http';
-
+import { AddentComponent } from './modules/addent/addent.component';
 
 @NgModule({
-  declarations: [AppComponent, AppCustomLayoutComponent, HeaderComponent, RegisterComponent, LoginComponent, ComponentNameComponent],
+  declarations: [AppComponent, AppCustomLayoutComponent, HeaderComponent, RegisterComponent, LoginComponent, ComponentNameComponent, AddentComponent],
   imports: [HttpClientModule, BrowserModule, FormsModule, ReactiveFormsModule, AppRoutingModule, NgbModule],
   providers: [HttpClientModule],
   bootstrap: [AppComponent],
 })
+
 export class AppModule { }

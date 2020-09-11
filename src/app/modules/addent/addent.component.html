@@ -1,0 +1,59 @@
+<div class="container p-5">
+  <div class="offset-3 col-7">
+    <div class="card">
+      <div class="card-header  font-weight-bold">
+        <h3 class="mb-0">Add Entity</h3>
+      </div>
+      <div class="card card-body">
+        <form [formGroup]="frmEnt" (submit)="submit()">
+          <div class="form-group">
+            <label for="human_name" [ngClass]="frmEnt.controls['human_name'].invalid ? 'text-danger' : ''">Human Name</label>
+            <input id="human_name" placeholder="Enter Name of Entity/Sub-entity here" formControlName="human_name" type="human_name" class="form-control" [ngClass]="frmEnt.controls['human_name'].invalid ? 'is-invalid' : ''">
+            <label class="text-danger" *ngIf="frmEnt.controls['human_name'].hasError('required')">
+              Name is Required
+            </label>
+          </div>
+          <div class="form-group">
+            <label for="org" [ngClass]="frmEnt.controls['org'].invalid ? 'text-danger' : ''">Organisation</label>
+            <input id="org" placeholder="What organisation are you with?" formControlName="org" type="org" class="form-control" [ngClass]="frmEnt.controls['org'].invalid ? 'is-invalid' : ''">
+            <label class="text-danger" *ngIf="frmEnt.controls['org'].hasError('required')">
+              Organisation is Required
+            </label>
+          </div>
+          <div class="form-group">
+            <label for="subent">Is this a SubEntity?</label>
+            <input id="subent" formControlName="subent" type="checkbox" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="ent" [ngClass]="frmEnt.controls['ent'].invalid ? 'text-danger' : ''">To which Entity?</label>
+            <select id="ent" formControlName="ent" type="ent" class="form-control" [ngClass]="frmEnt.controls['ent'].invalid ? 'is-invalid' : ''">
+              <option>Entity A</option>
+              <option>Entity B</option>
+              <option>Entity C</option>
+            </select>
+            <label class="text-danger" *ngIf="frmEnt.controls['ent'].hasError('required')">
+              Please select Entity
+            </label>
+          </div>
+          <div class="form-group">
+            <label for="id" [ngClass]="frmEnt.controls['id'].invalid ? 'text-danger' : ''">Entity ID</label>          
+            <input id="id" placeholder="Please enter the Entity ID" formControlName="id" type="id" class="form-control" [ngClass]="frmEnt.controls['id'].invalid ? 'is-invalid' : ''">
+            <label class="text-danger" *ngIf="frmEnt.controls['id'].hasError('required')">
+              ID is Required
+            </label>
+          </div>
+          <div class="form-group">
+            <label for="location" [ngClass]="frmEnt.controls['location'].invalid ? 'text-danger' : ''">Location</label>
+            <input id="location" placeholder="Please enter Location" formControlName="location" type="location" class="form-control" [ngClass]="frmEnt.controls['location'].invalid ? 'is-invalid' : ''">
+            <label class="text-danger" *ngIf="frmEnt.controls['location'].hasError('required')">
+              Location is Required
+            </label>
+          </div>
+          <div class="form-group">
+            <button [disabled]="frmEnt.invalid" type="submit" class="btn btn-primary btn-block font-weight-bold">Add Entity</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

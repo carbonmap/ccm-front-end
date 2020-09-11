@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { AppCustomLayoutComponent } from './layout/app-custom-layout/app-custom-layout.component';
 import { RegisterComponent } from './modules/register/register.component';
 import { LoginComponent } from './modules/login/login.component';
+import { AddentComponent } from './modules/addent/addent.component';
 const routes: Routes = [
   {
     path: '',
@@ -27,8 +28,9 @@ const routes: Routes = [
       {
         path: 'login', component: LoginComponent,
       },
-
-      
+      {
+        path: 'addent', component: AddentComponent
+      }      
     ],
   },
 ];
