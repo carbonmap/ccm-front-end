@@ -1,14 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top scrolling-navbar">
   <a class="navbar-brand" href="#">The Cambridge Carbon Map</a>
-  <button
-    class="navbar-toggler"
-    type="button"
-    data-toggle="collapse"
-    data-target="#navbarNav"
-    aria-controls="navbarNav"
-    aria-expanded="false"
-    aria-label="Toggle navigation"
-  >
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
+    aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarNav">
@@ -31,7 +24,9 @@
       <li [ngbNavItem]="5">
         <a ngbNavLink routerLink="/addent">Add Entity</a>
       </li>
+      <li [ngbNavItem]="6">
+        <a ngbNavLink routerLink="/superuser">Superuser Dashboard</a>
+      </li>
     </ul>
   </div>
 </nav>
-
