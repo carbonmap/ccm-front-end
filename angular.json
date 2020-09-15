@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "ccm-front-end"
+    }
+  },
+  "defaultProject": "ccm-front-end",
+  "cli": {
+    "analytics": "be225185-7318-4b7f-91a3-6b3bdf1171fb"
+  }
 }
