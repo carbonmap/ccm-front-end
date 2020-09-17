@@ -14,12 +14,24 @@ import { data } from 'jquery';
 export class SuperuserComponent implements OnInit {
 
   json;
-  limbo;
-  confirmed;
+  limbo; // name of object to use in html template for limbo files
+  confirmed; // name of object to use in html template for confirmed files
   constructor(private http: HttpClient) { };
 
   ngOnInit(): void {
   };
+
+  showfiles() {
+    this.http.post("http://127.0.0.1:5000/showfiles", this.json)
+      .subscribe((result) => {
+        console.log("result", result);
+        this.json = JSON.stringify(result);
+        this.limbo = JSON.parse(this.json).limbo;
+        this.confirmed = JSON.parse(this.json).confirmed;
+      });
+  };
+
+  instance = this.showfiles(); // Create an instance of the showfiles function to run on page load
 
   move() {
     this.http.post("http://127.0.0.1:5000/movefile", this.json)
