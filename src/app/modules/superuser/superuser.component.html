@@ -1,24 +1,19 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
+<div class="padding pt-4">
+    <div class="row pt-5">
+        <div class="col-md-6 mx-auto">
+            <div class="card rounded-0">
+                <div class="card-header">
+                    <h3 class="mb-0">Super-User Dashboard</h3>
+                </div>
+                <div class="card-body">
+                    <p>
+                        Click this button to move the file from limbo folder to confirmed folder!
+                        <button type="button" (click)="move()">Move file</button>
 
-<head>
-    <meta charset="utf-8">
-    <title>Super-User Dashboard</title>
-
-</head>
-
-<body>
-    <h1>
-        Super-User Dashboard
-    </h1>
-    <p>
-        Click this button to move the file from limbo folder to confirmed folder!
-        <button type="button" (click)="move()">Move file</button>
-
-    <p>Limbo files: {{limbo}}</p>
-    <p>Confirmed files: {{confirmed}}</p>
-
-
-</body>
-
-</html>
+                    <p><strong>Limbo files:</strong> {{limbo}}</p>
+                    <p><strong>Confirmed files:</strong> {{confirmed}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
