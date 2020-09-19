@@ -11,9 +11,10 @@ import { LoginComponent } from './modules/login/login.component';
 import { ComponentNameComponent } from './component-name/component-name.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AddentComponent } from './modules/addent/addent.component';
+import { AccComponent } from './modules/acc/acc.component';
 
 @NgModule({
-  declarations: [AppComponent, AppCustomLayoutComponent, HeaderComponent, RegisterComponent, LoginComponent, ComponentNameComponent, AddentComponent],
+  declarations: [AppComponent, AppCustomLayoutComponent, HeaderComponent, RegisterComponent, LoginComponent, ComponentNameComponent, AddentComponent, AccComponent],
   imports: [HttpClientModule, BrowserModule, FormsModule, ReactiveFormsModule, AppRoutingModule, NgbModule],
   providers: [HttpClientModule],
   bootstrap: [AppComponent],

@@ -4,6 +4,7 @@ import { AppCustomLayoutComponent } from './layout/app-custom-layout/app-custom-
 import { RegisterComponent } from './modules/register/register.component';
 import { LoginComponent } from './modules/login/login.component';
 import { AddentComponent } from './modules/addent/addent.component';
+import { AccComponent } from '@modules/acc/acc.component';
 const routes: Routes = [
   {
     path: '',
@@ -24,13 +25,19 @@ const routes: Routes = [
       },
       {
         path: 'register', component: RegisterComponent,
-      }, 
+      },
       {
         path: 'login', component: LoginComponent,
       },
       {
-        path: 'addent', component: AddentComponent
-      }      
+        path: 'addent', component: AddentComponent,
+      },
+
+      {
+        path: 'acc', component: AccComponent
+      }
+
+
     ],
   },
 ];
@@ -39,4 +46,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
