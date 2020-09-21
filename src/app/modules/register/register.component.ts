@@ -1,15 +1,18 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CustomValidators } from './custom-validators';
+import { HttpClient } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss']
+  styleUrls: ['./register.component.scss'],
+  providers: [HttpClientModule]
 })
 export class RegisterComponent {
   public frmSignup: FormGroup;
-
-  constructor(private fb: FormBuilder) {
+ 
+  constructor(private fb: FormBuilder, private http: HttpClient) {
     this.frmSignup = this.createSignupForm();
   }
 
@@ -62,7 +65,13 @@ export class RegisterComponent {
     );
   }
   submit() {
-  console.log(this.frmSignup.value)
+    console.log(this.frmSignup.value);
+    var registrationData = this.frmSignup.value
+    console.log(registrationData)
+    this.http.post("http://127.0.0.1:5000/register", registrationData)
+      .subscribe((result) => {
+        console.warn("result", result)
+      })
   }
   ngOnInit() {
     this.frmSignup.valueChanges.subscribe(console.log)

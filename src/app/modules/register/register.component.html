@@ -7,46 +7,46 @@
       <div class="card card-body">
         <form [formGroup]="frmSignup" (submit)="submit()">
           <div class="form-group">
-            <label for="full_name" [ngClass]="frmSignup.controls['full_name'].invalid ? 'text-danger' : ''">Full Name</label>
-            <input id="full_name" placeholder="Tell us your name!" formControlName="full_name" type="full_name" class="form-control" [ngClass]="frmSignup.controls['full_name'].invalid ? 'is-invalid' : ''">
-            <label class="text-danger" *ngIf="frmSignup.controls['full_name'].hasError('required')">
+            <label for="full_name" [ngClass]="frmSignup.controls['full_name'].invalid && frmSignup.controls['full_name'].touched ? 'text-danger' : ''">Full Name</label>
+            <input id="full_name" placeholder="Tell us your name!" formControlName="full_name" type="full_name" class="form-control" [ngClass]="frmSignup.controls['full_name'].invalid && frmSignup.controls['full_name'].touched ? 'is-invalid' : ''">
+            <label class="text-danger" *ngIf="frmSignup.controls['full_name'].touched && frmSignup.controls['full_name'].hasError('required')">
               Full Name is Required
             </label>
           </div>
           <div class="form-group">
-            <label for="org" [ngClass]="frmSignup.controls['org'].invalid ? 'text-danger' : ''">Organisation</label>
-            <input id="org" placeholder="What organisation are you with?" formControlName="org" type="org" class="form-control" [ngClass]="frmSignup.controls['org'].invalid ? 'is-invalid' : ''">
-            <label class="text-danger" *ngIf="frmSignup.controls['org'].hasError('required')">
+            <label for="org" [ngClass]="frmSignup.controls['org'].invalid && frmSignup.controls['org'].touched ? 'text-danger' : ''">Organisation</label>
+            <input id="org" placeholder="What organisation are you with?" formControlName="org" type="org" class="form-control" [ngClass]="frmSignup.controls['org'].invalid && frmSignup.controls['org'].touched ? 'is-invalid' : ''">
+            <label class="text-danger" *ngIf="frmSignup.controls['org'].touched &&frmSignup.controls['org'].hasError('required')">
               Organisation is Required
             </label>
           </div>
           <div class="form-group">
-            <label for="user_type" [ngClass]="frmSignup.controls['user_type'].invalid ? 'text-danger' : ''">Type of User</label>
-            <select id="user_type" formControlName="user_type" type="user_type" class="form-control" [ngClass]="frmSignup.controls['user_type'].invalid ? 'is-invalid' : ''">
+            <label for="user_type" [ngClass]="frmSignup.controls['user_type'].touched && frmSignup.controls['user_type'].invalid ? 'text-danger' : ''">Type of User</label>
+            <select id="user_type" formControlName="user_type" type="user_type" class="form-control" [ngClass]="frmSignup.controls['user_type'].touched && frmSignup.controls['user_type'].invalid ? 'is-invalid' : ''">
               <option>Academic</option>
               <option>Business</option>
               <option>Council</option>
             </select>
-            <label class="text-danger" *ngIf="frmSignup.controls['user_type'].hasError('required')">
+            <label class="text-danger" *ngIf="frmSignup.controls['user_type'].touched && frmSignup.controls['user_type'].hasError('required')">
               Please select User Type
             </label>
           </div>
           <div class="form-group">
-            <label for="email" [ngClass]="frmSignup.controls['email'].invalid ? 'text-danger' : ''">Email Address</label>
-            <input id="email" placeholder= "Enter your email address" formControlName="email" type="email" class="form-control" [ngClass]="frmSignup.controls['email'].invalid ? 'is-invalid' : ''">
-            <label class="text-danger" *ngIf="frmSignup.controls['email'].hasError('required')">
+            <label for="email" [ngClass]="frmSignup.controls['email'].touched && frmSignup.controls['email'].invalid ? 'text-danger' : ''">Email Address</label>
+            <input id="email" placeholder= "Enter your email address" formControlName="email" type="email" class="form-control" [ngClass]="frmSignup.controls['email'].touched && frmSignup.controls['email'].invalid ? 'is-invalid' : ''">
+            <label class="text-danger" *ngIf="frmSignup.controls['email'].touched && frmSignup.controls['email'].hasError('required')">
               Email is Required
             </label>
-            <label class="text-danger" *ngIf="frmSignup.controls['email'].hasError('email')">
+            <label class="text-danger" *ngIf="frmSignup.controls['email'].touched && frmSignup.controls['email'].hasError('email')">
               Enter a valid email address
             </label>
           </div>
           <div class="form-group">
-            <label for="password" [ngClass]="frmSignup.controls['password'].invalid ? 'text-danger' : ''">Password:</label>
-            <input id="password" placeholder="Choose a safe password!" formControlName="password" type="password" class="form-control" [ngClass]="frmSignup.controls['password'].invalid ? 'is-invalid' : ''">
-            <!-- <label class="text-danger col" *ngIf="frmSignup.controls['password'].hasError('required')">
+            <label for="password" [ngClass]="frmSignup.controls['password'].touched && frmSignup.controls['password'].invalid ? 'text-danger' : ''">Password:</label>
+            <input id="password" placeholder="Choose a safe password!" formControlName="password" type="password" class="form-control" [ngClass]="frmSignup.controls['password'].touched && frmSignup.controls['password'].invalid ? 'is-invalid' : ''">
+            <label class="text-danger col" *ngIf="frmSignup.controls['password'].touched && frmSignup.controls['password'].hasError('required')">
               Password is Required
-            </label> -->
+            </label>
             <label class="col" [ngClass]="frmSignup.controls['password'].hasError('required') || frmSignup.controls['password'].hasError('minlength')  ? 'text-danger' : 'text-success'">
               <i class="material-icons">{{ frmSignup.controls['password'].hasError('required') ||
                 frmSignup.controls['password'].hasError('minlength') ? 'cancel' :
@@ -79,14 +79,14 @@
             </label>
           </div>
           <div class="form-group">
-            <label for="confirmPassword" [ngClass]="frmSignup.controls['confirmPassword'].invalid ? 'text-danger' : ''">Confirm
+            <label for="confirmPassword" [ngClass]="frmSignup.controls['confirmPassword'].touched && frmSignup.controls['confirmPassword'].invalid ? 'text-danger' : ''">Confirm
               Password:</label>
             <input id="confirmPassword" placeholder="Confirm your password" formControlName="confirmPassword" type="password" class="form-control"
-              [ngClass]="frmSignup.controls['confirmPassword'].invalid ? 'is-invalid' : ''">
-            <label class="text-danger" *ngIf="frmSignup.controls['confirmPassword'].hasError('required')">
+              [ngClass]="frmSignup.controls['confirmPassword'].touched && frmSignup.controls['confirmPassword'].invalid ? 'is-invalid' : ''">
+            <label class="text-danger" *ngIf="frmSignup.controls['confirmPassword'].touched && frmSignup.controls['confirmPassword'].hasError('required')">
               Password is Required
             </label>
-            <label class="text-danger" *ngIf="frmSignup.controls['confirmPassword'].hasError('NoPassswordMatch')">
+            <label class="text-danger" *ngIf="frmSignup.controls['confirmPassword'].touched && frmSignup.controls['confirmPassword'].hasError('NoPassswordMatch')">
               Password do not match
             </label>
           </div>
