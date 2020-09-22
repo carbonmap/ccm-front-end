@@ -1,9 +1,6 @@
-import { Component, Injectable, NgModule, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpClient } from '@angular/common/http';
-import { Router } from "@angular/router";
-import { data } from 'jquery';
 
 @Component({
   selector: 'app-superuser',
@@ -33,8 +30,13 @@ export class SuperuserComponent implements OnInit {
 
   instance = this.showfiles(); // Create an instance of the showfiles function to run on page load
 
-  move() {
-    this.http.post("http://127.0.0.1:5000/movefile", this.json)
+  file_name = { name: '' }
+
+  move(file) {  // takes argument file, which is used in html button to select individual file
+
+    this.file_name.name = file // sets the function argument == file_name json's name
+
+    this.http.post("http://127.0.0.1:5000/movefile", this.file_name) // push request with file_name json
       .subscribe((result) => {
         console.log("The file has been moved", result);
         this.json = JSON.stringify(result);

@@ -6,12 +6,18 @@
                     <h3 class="mb-0">Super-User Dashboard</h3>
                 </div>
                 <div class="card-body">
-                    <p>
-                        Click this button to move the file from limbo folder to confirmed folder!
-                        <button type="button" (click)="move()">Move file</button>
-
-                    <p><strong>Limbo files:</strong> {{limbo}}</p>
-                    <p><strong>Confirmed files:</strong> {{confirmed}}</p>
+                    <p><strong>Limbo files:</strong></p>
+                    <div>
+                        <div *ngFor="let file of limbo">
+                            {{file}} <button (click)="move(file)">Approve File</button>
+                        </div>
+                    </div>
+                    <p><strong>Confirmed files:</strong></p>
+                    <div>
+                        <div *ngFor="let file of confirmed">
+                            {{file}} <button (click)="move(file)">Remove File</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
