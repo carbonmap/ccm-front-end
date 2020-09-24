@@ -1,14 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top scrolling-navbar">
   <a class="navbar-brand" href="#">The Cambridge Carbon Map</a>
-  <button
-    class="navbar-toggler"
-    type="button"
-    data-toggle="collapse"
-    data-target="#navbarNav"
-    aria-controls="navbarNav"
-    aria-expanded="false"
-    aria-label="Toggle navigation"
-  >
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
+    aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarNav">
@@ -19,19 +12,22 @@
       <li [ngbNavItem]="2">
         <a ngbNavLink routerLink="/map">Map</a>
       </li>
+      <li [ngbNavItem]="3">
+        <a ngbNavLink routerLink="/maptwo">Map Two</a>
+      </li>
     </ul>
   </div>
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul ngbNav [(activeId)]="active" class="navbar-nav ml-auto">
-      <li [ngbNavItem]="3">
+      <li [ngbNavItem]="4">
         <a ngbNavLink routerLink="/register">Register</a>
       </li>
-      <li [ngbNavItem]="4">
-        <a ngbNavLink routerLink="/login">Login</a>
       <li [ngbNavItem]="5">
+        <a ngbNavLink routerLink="/login">Login</a>
+      </li>
+      <li [ngbNavItem]="6">
         <a ngbNavLink routerLink="/addent">Add Entity</a>
       </li>
     </ul>
   </div>
 </nav>
-

@@ -23,14 +23,18 @@ const routes: Routes = [
         loadChildren: () => import('@modules/map/map.module').then((m) => m.MapModule),
       },
       {
+        path: 'maptwo',
+        loadChildren: () => import('@modules/maptwo/maptwo.module').then((m) => m.MaptwoModule),
+      },
+      {
         path: 'register', component: RegisterComponent,
-      }, 
+      },
       {
         path: 'login', component: LoginComponent,
       },
       {
         path: 'addent', component: AddentComponent
-      }      
+      }
     ],
   },
 ];
@@ -39,4 +43,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
