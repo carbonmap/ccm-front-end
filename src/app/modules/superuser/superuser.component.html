@@ -6,16 +6,16 @@
                     <h3 class="mb-0">Super-User Dashboard</h3>
                 </div>
                 <div class="card-body">
-                    <p><strong>Limbo files:</strong></p>
-                    <div>
-                        <div *ngFor="let file of limbo">
-                            {{file}} <button (click)="move(file)">Approve File</button>
+                    <div class="limbo">
+                        <strong>Limbo files:</strong>
+                        <div class="items" *ngFor="let file of limbo">
+                            {{file}} <button (click)="move(file)" class="approve">Approve</button>
                         </div>
                     </div>
-                    <p><strong>Confirmed files:</strong></p>
-                    <div>
-                        <div *ngFor="let file of confirmed">
-                            {{file}} <button (click)="move(file)">Remove File</button>
+                    <div class="confirmed">
+                        <strong>Confirmed files:</strong>
+                        <div class="items" *ngFor="let file of confirmed">
+                            {{file}} <button (click)="move(file)" class="remove">Remove</button>
                         </div>
                     </div>
                 </div>
