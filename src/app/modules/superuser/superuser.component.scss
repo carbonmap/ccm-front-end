@@ -1,0 +1,31 @@
+.limbo {
+    padding-bottom: 10px;
+}
+
+.confirmed {
+    padding-top: 10px;
+}
+
+.approve {
+    background: green;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    float: right;
+}
+
+.remove {
+    background: rgb(200, 0, 0);
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    float: right;
+}
+
+.items {
+    border: none;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-bottom: 1px #ccc dotted;
+}
+
