@@ -36,11 +36,12 @@ export class MapComponent implements AfterViewInit {
       return;
     }
 
-    //this.dataRoot = 'https://data.cambridgecarbonmap.org';
+    this.dataRoot = 'https://data.cambridgecarbonmap.org';
     this.http.post("http://127.0.0.1:5000/map", null)
       .subscribe((result) => {
-        console.log("result", result)
-      })
+        console.log(result)
+        //this.startList = JSON.stringify(result)
+      });
     this.initialLat = 52.205;
     this.initialLon = 0.1218;
     this.initialZoom = 12.5;
@@ -58,42 +59,42 @@ export class MapComponent implements AfterViewInit {
     this.lock = false;
 
     var that = this;
-    /*
-        function changeDisplay(layer, mode) {
-          if (mode == 0) {
-            // Main object, seen on surface, not hovered over
-            layer.setStyle({ "fillColor": "#0000ff", "fillOpacity": 0.35, "opacity": 0 })
-            layer.bringToFront();
-          }
-          if (mode == 1) {
-            // Parent object, being hover over ///// next iteration: have children show if this mode is stayed on for long enough
-            layer.setStyle({ "fillColor": "#ff0000", "fillOpacity": 0.3, "opacity": 0 })
-          }
-          if (mode == 2) {
-            // Parent object, has been selected, so now faint to show children
-            layer.setStyle({ "fillColor": "#0000ff", "color": "#cc0000", "fillOpacity": 0, "opacity": 0.3 })
-          }
-          if (mode == 3) {
-            // Child object, parent not selected so is invisible
-            layer.setStyle({ "fillColor": "#0000ff", "fillOpacity": 0, "opacity": 0 })
-          }
-          if (mode == 4) {
-            // Child object, parent has been selected so is now visible, not hovered over
-            layer.setStyle({ "fillColor": "#669900", "fillOpacity": 0.5, "opacity": 0 })
-            layer.bringToFront();
-          }
-          if (mode == 5) {
-            // Child object, being hovered over
-            layer.setStyle({ "fillColor": "#ff0000", "fillOpacity": 0.3, "opacity": 0 })
-          }
-        }
-    
-        this.layerDict = {};
-    */
+
+    function changeDisplay(layer, mode) {
+      if (mode == 0) {
+        // Main object, seen on surface, not hovered over
+        layer.setStyle({ "fillColor": "#0000ff", "fillOpacity": 0.35, "opacity": 0 })
+        layer.bringToFront();
+      }
+      if (mode == 1) {
+        // Parent object, being hover over ///// next iteration: have children show if this mode is stayed on for long enough
+        layer.setStyle({ "fillColor": "#ff0000", "fillOpacity": 0.3, "opacity": 0 })
+      }
+      if (mode == 2) {
+        // Parent object, has been selected, so now faint to show children
+        layer.setStyle({ "fillColor": "#0000ff", "color": "#cc0000", "fillOpacity": 0, "opacity": 0.3 })
+      }
+      if (mode == 3) {
+        // Child object, parent not selected so is invisible
+        layer.setStyle({ "fillColor": "#0000ff", "fillOpacity": 0, "opacity": 0 })
+      }
+      if (mode == 4) {
+        // Child object, parent has been selected so is now visible, not hovered over
+        layer.setStyle({ "fillColor": "#669900", "fillOpacity": 0.5, "opacity": 0 })
+        layer.bringToFront();
+      }
+      if (mode == 5) {
+        // Child object, being hovered over
+        layer.setStyle({ "fillColor": "#ff0000", "fillOpacity": 0.3, "opacity": 0 })
+      }
+    }
+
+    this.layerDict = {};
+
     this.map.on('click', function (e) {
       that.lock = !that.lock
     });
-/*
+
     // Will have to generate this in next iteration
     this.startList = findData("index")
     console.log(this.startList)
@@ -312,6 +313,4 @@ export class MapComponent implements AfterViewInit {
       return div
     }
   }
-}
-*/}
 }
