@@ -4,6 +4,7 @@ import { AppCustomLayoutComponent } from './layout/app-custom-layout/app-custom-
 import { RegisterComponent } from './modules/register/register.component';
 import { LoginComponent } from './modules/login/login.component';
 import { AddentComponent } from './modules/addent/addent.component';
+import { SuperuserComponent } from '@modules/superuser/superuser.component';
 const routes: Routes = [
   {
     path: '',
@@ -34,6 +35,9 @@ const routes: Routes = [
       },
       {
         path: 'addent', component: AddentComponent
+      },
+      {
+        path: 'superuser', component: SuperuserComponent,
       }
     ],
   },
