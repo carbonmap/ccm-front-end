@@ -1,14 +1,14 @@
 <!--Accordion wrapper-->
 <div class="accordion md-accordion accordion-blocks pt-5" id="accordionEx78" role="tablist" aria-multiselectable="true">
     <!-- Accordion card -->
-    <div class="card" *ngFor = "let ent of entites; let i = index">
+    <div class="card" *ngFor = "let ent of data; let i = index">
         <!-- Card header -->
         <div class="card-header" role="tab" id="heading{{i}}">
             <!-- Heading -->
             <a data-toggle="collapse" data-parent="#accordionEx78" href="#collapse{{i}}" aria-expanded="true"
                 aria-controls="collapse{{i}}">
                 <h5 class="mt-1 mb-0">
-                    {{ ent }}
+                    {{ ent.name }}
                     <i class="fas fa-angle-down rotate-icon"></i>
                 </h5>
             </a>
@@ -32,39 +32,47 @@
                                     <input class="form-check-input" type="checkbox" id="checkbox4">
                                     <label for="checkbox4" class="mr-2 label-table"></label>
                                 </th>
-                                <th class="th-lg"><a>Name <i class="fas fa-sort ml-1"></i></a></th>
-                                <th class="th-lg"><a>Number of Students<i class="fas fa-sort ml-1"></i></a></th>
-                                <th class="th-lg"><a>Carbon Data<i class="fas fa-sort ml-1"></i></a></th>
+                                <th class="th-lg"><a>Property <i class="fas fa-sort ml-1"></i></a></th>
+                                <th class="th-lg"><a>Value<i class="fas fa-sort ml-1"></i></a></th>
                                 <th></th>
                             </tr>
                         </thead>
-                        <!--Table head-->
-                        <!--Table body-->
                         <tbody>
-                            <tr>
+                            <tr *ngFor = "let x of ent | keyvalue | slice:0:-1; let k = index;">
                                 <th scope="row">
-                                    <input class="form-check-input" type="checkbox" id="checkbox5">
-                                    <label for="checkbox5" class="label-table"></label>
+                                    <input class="form-check-input" type="checkbox" id="checkbox">
+                                    <label for="checkbox" class="label-table"></label>
                                 </th>
-                                <td>Test subscription</td>
-                                <td>Scroll % is equal or greater than <strong>80</strong></td>
-                                <td>12.06.2017</td>
-                                <td>
-                                    <a><i class="fas fa-info mx-1" data-toggle="tooltip" data-placement="top"
-                                            title="Tooltip on top"></i></a>
-                                    <a><i class="fas fa-pen-square mx-1"></i></a>
-                                    <a><i class="fas fa-times mx-1"></i></a>
-                                </td>
-                            </tr>
+                                  <td> {{ titles[k] }} </td>
+				  <td>  {{ x['value'] }}  </td>
+                                
+                           </tr>
                         </tbody>
-                        <!--Table body-->
+                        <tbody *ngFor = "let subent of ent.properties;  let l = index;">
+                             <tr *ngFor = "let val of subent | keyvalue">
+                                  <th scope="row">
+                                    <input class="form-check-input" type="checkbox" id="checkbox">
+                                    <label for="checkbox" class="label-table"></label>
+                                  </th>
+                                    <td> {{ val['key'] }}  </td>
+                                    <td> {{ val['value'] }} </td>
+                             </tr>
+                           </tbody>
                     </table>
-                    <!--Table-->
                 </div>
-                <!-- Table responsive wrapper -->
             </div>
         </div>
     </div>
-    <!-- Accordion card -->
+    <div class="card">
+        <!-- Card header -->
+        <div class="card-header" role="tab" id="heading1">
+            <!-- Heading -->
+            <a routerLink= "/addent">
+                <h5 class="mt-1 mb-0">
+                     Add Entity
+                    <i class="fas fa-angle-down rotate-icon"></i>
+                </h5>
+            </a>
+        </div>
 </div>
-<!--/.Accordion wrapper-->
+

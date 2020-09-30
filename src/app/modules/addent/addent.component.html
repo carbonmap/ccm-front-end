@@ -23,17 +23,17 @@
                 <div [frmEntGroupName]="i">
                   <div class="form-group">
                    <label> Is this a Sub-Entity? </label>
-                   <input class="form-control" frmEntControlName="issubent" type="checkbox"> 
+                   <input class="form-control" frmEntControlName="issubent" type="checkbox" [checked] = "issubent.check == 'true'"> 
                 </div>
                   <div class="form-group">
                     <label>To which entity</label>
                     <select (change)="changedFieldType(i)" class="form-control" frmEntControlName="type" type="text">
-                      <option value="Entity A">Entity A</option>
+                      <option value="Entity A">Entity A</option> 
                       <option value="Entity B">Entity B</option>
                     </select>
                   </div>
                   <div class="form-group">
-                    <label>Entity ID</label>
+                    <label>Subentity ID</label>
                     <input class="form-control" frmEntControlName="human_name" type="text">
                     <span class="text-danger" *ngIf="getEntsFormGroup(i).controls['name'].touched && getEntsFormGroup(i).controls['name'].hasError('required')">
                       Human name is required </span>
@@ -64,7 +64,7 @@
           <div class="card-body">
             <div class="col-12">
               <button class="btn btn-primary m-1" type="button" (click)="addEnt()"> Add Entity </button>
-              <button class="btn btn-success m-1" [disabled]="!frmEnt.valid" type="submit"> Save Entity Information </button>
+              <button class="btn btn-success m-1"  type="submit"> Save Entity Information </button>
             </div>
           </div>
         </div>
