@@ -1,12 +1,13 @@
 import * as $ from "jquery";
 import * as L from 'leaflet';
 
-import { AfterViewInit, Component } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
-import { HttpClient } from '@angular/common/http';
-import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 
+import { ActivatedRoute } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { Location } from '@angular/common';
+import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
 
 @Component({
   selector: 'app-map',
@@ -24,13 +25,18 @@ export class MapComponent implements AfterViewInit {
   private lock
   private layerDict
   public startList
+  public startLayer
   private configUrl
   private childList
+  private startEntity
   private geojson
   private jsondata
 
-  constructor(private location: Location){ }
-  constructor(private http: HttpClient) { }
+  constructor(
+    private location: Location,
+    private http: HttpClient,
+    private route: ActivatedRoute
+  ){ }
 
   ngAfterViewInit(): void {
     this.initialize()
@@ -94,6 +100,9 @@ export class MapComponent implements AfterViewInit {
       }
     }
 
+    this.startEntity = this.route.snapshot.queryParamMap.get('id')
+    console.log(this.startEntity)
+
     this.layerDict = {};
 
     this.map.on('click', function (e) {
@@ -102,28 +111,28 @@ export class MapComponent implements AfterViewInit {
 
     // Remove if not needed
     this.startList = findData("index")
-    (async () => {
-      this.http.post("http://127.0.0.1:5000/mapstart", null)
-        .subscribe(result => {
-          console.log(result)
-          this.startList = result;
-          console.log(this.startList)
-        });
+    //(async () => {
+    //  this.http.post("http://127.0.0.1:5000/mapstart", null)
+    //    .subscribe(result => {
+    //      console.log(result)
+    //      this.startList = result;
+    //      console.log(this.startList)
+    //    });
+//
+    //  await delay(200);
+    //  console.log(this.startList)
+//
+    //  this.http.post("http://127.0.0.1:5000/mapchild", null)
+    //    .subscribe(result => {
+    //      console.log(result)
+    //      this.childList = result;
+    //      console.log(this.childList)
+    //    });
+//
+    //  await delay(200);
+    //  console.log(this.childList)
 
-      await delay(200);
-      console.log(this.startList)
-
-      this.http.post("http://127.0.0.1:5000/mapchild", null)
-        .subscribe(result => {
-          console.log(result)
-          this.childList = result;
-          console.log(this.childList)
-        });
-
-      await delay(200);
-      console.log(this.childList)
-
-      //this.childList = ["uk.ac.cam.st-edmunds.white-cottage", "uk.ac.cam.st-edmunds.norfolk-building", "uk.ac.cam.st-edmunds.richard-laws", "uk.ac.cam.kings.kingsparade", "uk.ac.cam.kings.spalding", "uk.ac.cam.kings.kingsfield", "uk.ac.cam.kings.garden", "uk.ac.cam.kings.grasshopper", "uk.ac.cam.kings.cranmer", "uk.ac.cam.kings.st-edwards", "uk.ac.cam.kings.tcr", "uk.ac.cam.kings.market", "uk.ac.cam.kings.plodge", "uk.ac.cam.kings.bodleys", "uk.ac.cam.kings.old-site", "uk.ac.cam.kings.provosts-lodge", "uk.ac.cam.kings.webbs", "uk.ac.cam.kings.keynes", "uk.ac.cam.kings.a-staircase", "uk.ac.cam.kings.wilkins"]
+      this.childList = ["uk.ac.cam.st-edmunds.white-cottage", "uk.ac.cam.st-edmunds.norfolk-building", "uk.ac.cam.st-edmunds.richard-laws", "uk.ac.cam.kings.kingsparade", "uk.ac.cam.kings.spalding", "uk.ac.cam.kings.kingsfield", "uk.ac.cam.kings.garden", "uk.ac.cam.kings.grasshopper", "uk.ac.cam.kings.cranmer", "uk.ac.cam.kings.st-edwards", "uk.ac.cam.kings.tcr", "uk.ac.cam.kings.market", "uk.ac.cam.kings.plodge", "uk.ac.cam.kings.bodleys", "uk.ac.cam.kings.old-site", "uk.ac.cam.kings.provosts-lodge", "uk.ac.cam.kings.webbs", "uk.ac.cam.kings.keynes", "uk.ac.cam.kings.a-staircase", "uk.ac.cam.kings.wilkins"]
 
       async function putOnMap(objjson) {
         await delay(1000);
@@ -153,6 +162,8 @@ export class MapComponent implements AfterViewInit {
                 console.log(feature)
                 objjson['__zone_symbol__value'].loadedSubentities = []
 
+                layer._leaflet_id = mapFeature.id
+
                 var popup = new L.Popup({
                   autoPan: false,
                   keepInView: true,
@@ -167,9 +178,11 @@ export class MapComponent implements AfterViewInit {
                 // Change to objects
                 that.layerDict[objjson['__zone_symbol__value'].id] = [layer, startmode];
                 console.log(addr)
+                
                 that.map.closePopup();
 
                 layer.on('click', function (e) {
+
 
                   // Soft url change (does not reload page)
                   that.location.replaceState("/map/" + objjson['__zone_symbol__value'].id);
@@ -182,6 +195,7 @@ export class MapComponent implements AfterViewInit {
                         objjson['__zone_symbol__value'].loadedSubentities.push(findData(j))
                         //console.log(objjson.loadedSubentities)
                       })
+
                       objjson['__zone_symbol__value'].loadedSubentities.forEach(j => {
                         console.log("about to put on map:" + j.id)
                         putOnMap(j)
@@ -199,6 +213,7 @@ export class MapComponent implements AfterViewInit {
                         changeDisplay(that.layerDict[j][0], that.layerDict[j][1]);
 
                       })
+
                     }
 
                   // Is a parent that has been selected, now that it is is selected again it will hide all children and go back to normal
@@ -224,6 +239,8 @@ export class MapComponent implements AfterViewInit {
                     that.map.closePopup();
                     popup.setContent(objjson['__zone_symbol__value'].link);
                     popup.setLatLng(e.latlng).openOn(that.map);
+                    // Soft url change (does not reload page)
+                    that.location.replaceState("/map?id=" + objjson.id);
                   }
 
                   else {
@@ -282,13 +299,26 @@ export class MapComponent implements AfterViewInit {
                 popup.setLatLng([0, 0]).openOn(that.map);
                 that.map.closePopup();
               }
-            }).addTo(that.map);
-        ;
+            })
+            
+          mapFeature.marker.addTo(that.map);
+          
+        });
+
+        return mapFeature
+
       }
 
+
       Object.keys(that.startList).forEach(function (addr, index) {
-        putOnMap(findData(that.startList[index]))
+        var mapFeature = putOnMap(findData(that.startList[index]))
+        if (that.startEntity == mapFeature.id){
+          that.startLayer = mapFeature.marker
+        }
       });
+      
+      var feature = that.startLayer.getLayer(that.startEntity)
+      console.log(feature.getLatLng)
 
       async function findData(id) {
         /*
@@ -376,6 +406,8 @@ export class MapComponent implements AfterViewInit {
 
         return div
       }
-    })();
-  }
+    }
+    // )
+    //();
+  //}
 }
