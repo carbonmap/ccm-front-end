@@ -6,6 +6,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { HttpClient } from '@angular/common/http';
 import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
 
+import { Location } from '@angular/common';
+
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
@@ -27,8 +29,8 @@ export class MapComponent implements AfterViewInit {
   private geojson
   private jsondata
 
-  constructor(private http: HttpClient) {
-  }
+  constructor(private location: Location){ }
+  constructor(private http: HttpClient) { }
 
   ngAfterViewInit(): void {
     this.initialize()
@@ -98,6 +100,8 @@ export class MapComponent implements AfterViewInit {
       that.lock = !that.lock
     });
 
+    // Remove if not needed
+    this.startList = findData("index")
     (async () => {
       this.http.post("http://127.0.0.1:5000/mapstart", null)
         .subscribe(result => {
@@ -166,8 +170,11 @@ export class MapComponent implements AfterViewInit {
                 that.map.closePopup();
 
                 layer.on('click', function (e) {
+
+                  // Soft url change (does not reload page)
+                  that.location.replaceState("/map/" + objjson['__zone_symbol__value'].id);
+
                   if (!("link" in objjson['__zone_symbol__value'])) {
-                    console.log("asdf")
                     objjson['__zone_symbol__value'].link = makeLink(objjson['__zone_symbol__value']);
 
                     if (objjson['__zone_symbol__value'].subentities.length > 0) {
@@ -179,8 +186,6 @@ export class MapComponent implements AfterViewInit {
                         console.log("about to put on map:" + j.id)
                         putOnMap(j)
                       })
-                    }
-                  }
 
                   // Is a parent, not yet selected, so when it is clicked, it's popup stays the same, but we get it's children turn light green
                   if (that.layerDict[addr][1] == 1) {
@@ -195,7 +200,6 @@ export class MapComponent implements AfterViewInit {
 
                       })
                     }
-                  }
 
                   // Is a parent that has been selected, now that it is is selected again it will hide all children and go back to normal
                   else if (that.layerDict[addr][1] == 2) {
