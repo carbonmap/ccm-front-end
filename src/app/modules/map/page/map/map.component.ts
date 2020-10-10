@@ -4,6 +4,7 @@ import * as L from 'leaflet';
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 
 import { ActivatedRoute } from '@angular/router';
+import { DataModule } from 'src/app/data/data.module'
 import { HttpClient } from '@angular/common/http';
 import { HttpClientModule } from '@angular/common/http';
 import { Location } from '@angular/common';
@@ -107,7 +108,7 @@ export class MapComponent implements AfterViewInit {
 
     // Remove if not needed
     this.startList = findData("index")
-    //(async () => {
+    // async () => {
     //  this.http.post("http://127.0.0.1:5000/mapstart", null)
     //    .subscribe(result => {
     //      console.log(result)
@@ -211,8 +212,12 @@ export class MapComponent implements AfterViewInit {
                   }
 
                   else {
-                    //popup.setContent(feature.properties.name);
-                    popup.setContent(objjson.name);
+                    popup.setContent(
+                      // Put into own submodule
+                      // new DataModule
+                      objjson.link
+                    );
+                    // popup.setContent(objjson.name);
                   }
                 });
 
@@ -284,7 +289,15 @@ export class MapComponent implements AfterViewInit {
       });
       
       var feature = that.startLayer.getLayer(that.startEntity)
-      console.log(feature.getLatLng)
+      var coords = feature.feature.geometry.coordinates[0][0]
+      if (coords.length == 2){
+        coords = coords.reverse()
+      } else {
+        coords = coords[0].reverse() // Get first right now, change to centroid, or just change to back end
+      }
+      that.map.setView(coords, 16)
+      console.log(coords)
+
 
       function findData(id) {
         var obj = null
@@ -315,50 +328,24 @@ export class MapComponent implements AfterViewInit {
         return new Promise(resolve => setTimeout(resolve, ms));
       }
 
-      //function makeLink(feature) {
       function makeLink(objjson) {
         //
         var div = document.createElement("div");
-        div.align = "center"
 
-        var searcher = objjson.id;
-        var own = true;
-        console.log(objjson)
+        that.http.post("http://127.0.0.1:5000/entity_data", {"id": objjson.id})
+          .subscribe(result => {
+            console.log(result)
+            // data = result;
+            div.innerHTML = "Will request data from " + objjson.id + " " + result
+          },
+          err=>{}
+        );
 
-        //Find closest parent to 
-        while (that.startList.indexOf(searcher) < 0) {
-          console.log("Entered loop with:", searcher)
-          console.log(that.startList)
-          own = false;
-          searcher = searcher.split(".")
-          var popped = searcher.pop()
-          searcher = searcher.join(".")
-        }
-
-        // var datajson = findData(searcher)
-        var href_ = `reporting_entities/${searcher}`
-
-        // NEED to display and normalise (for time) the most recent emissions number
-
-        var toptext = `Emissions data is coming soon! </br> Click here if you want to hear more from us,</br> or involved with the project - we'd love to have you on board`
-        var bottext = "Click here"
-        href_ = "http://cambridgecarbonmap.org/"
-
-        if (own) {
-          //toptext = `Emissions for ${datajson.name}:`
-        } else {
-          //toptext = `No stats for this building individually! Emissions for ${datajson.name}:`
-        }
-
-        div.innerHTML = `
-             <p style = "font-size:14px"><a href = "${href_}">${toptext}</a></p>
-         `
-        //<p style="font-size:25px"><a href = "${href_}">${bottext}</a></p>
 
         return div
       }
     }
     // )
     //();
-  //}
+  // }
 }
