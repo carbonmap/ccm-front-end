@@ -29,6 +29,8 @@ export class MapComponent implements AfterViewInit {
   private configUrl
   private childList
   private startEntity
+  private geojson
+  private jsondata
 
   constructor(
     private location: Location,
@@ -47,11 +49,13 @@ export class MapComponent implements AfterViewInit {
     }
 
     //this.dataRoot = 'https://data.cambridgecarbonmap.org';
-    this.dataRoot = 'http://localhost:8080/'
+    //this.dataRoot = 'http://localhost:8080/'
+    this.dataRoot = "http://127.0.0.1:5000/json"
     this.initialLat = 52.205;
     this.initialLon = 0.1218;
     this.initialZoom = 12.5;
     this.mapDiv = 'map';
+    this.jsondata = {}
 
     this.map = L.map(this.mapDiv).setView([this.initialLat, this.initialLon], this.initialZoom);
     const attribution = '&copy; <a href="https://www.openstreetmap/copyright">OpenStreeMap</a> contributors';
@@ -130,25 +134,33 @@ export class MapComponent implements AfterViewInit {
 
       this.childList = ["uk.ac.cam.st-edmunds.white-cottage", "uk.ac.cam.st-edmunds.norfolk-building", "uk.ac.cam.st-edmunds.richard-laws", "uk.ac.cam.kings.kingsparade", "uk.ac.cam.kings.spalding", "uk.ac.cam.kings.kingsfield", "uk.ac.cam.kings.garden", "uk.ac.cam.kings.grasshopper", "uk.ac.cam.kings.cranmer", "uk.ac.cam.kings.st-edwards", "uk.ac.cam.kings.tcr", "uk.ac.cam.kings.market", "uk.ac.cam.kings.plodge", "uk.ac.cam.kings.bodleys", "uk.ac.cam.kings.old-site", "uk.ac.cam.kings.provosts-lodge", "uk.ac.cam.kings.webbs", "uk.ac.cam.kings.keynes", "uk.ac.cam.kings.a-staircase", "uk.ac.cam.kings.wilkins"]
 
-      function putOnMap(objjson) {
+      async function putOnMap(objjson) {
+        await delay(1000);
+        var geo
+        console.log(objjson['__zone_symbol__value'])
+        let addr = objjson['__zone_symbol__value'].id
+        console.log(addr)
 
-        let addr = objjson.id
-        var mapFeature = {
-          id: addr,
-          marker: null
-        }
-        
         $.ajaxSetup({
           'async': false,
         });
-        $.getJSON(that.dataRoot + "/geojson/" + addr + ".geojson", function (geojson) {
+        //$.getJSON(that.dataRoot + "/geojson/" + addr + ".geojson", function (geojson) {
+          that.http.post("http://127.0.0.1:5000/data", {id: addr})
+            .subscribe(result => {
+              console.log(result)
+              geo = result;
+              console.log(geo)
+            });
           
-          mapFeature.marker = L.geoJSON(geojson,
+          await delay(200);
+          console.log(geo)
 
+          L.geoJSON(geo,
             {
               onEachFeature: function (feature, layer) {
 
-                objjson.loadedSubentities = []
+                console.log(feature)
+                objjson['__zone_symbol__value'].loadedSubentities = []
 
                 layer._leaflet_id = mapFeature.id
 
@@ -160,27 +172,48 @@ export class MapComponent implements AfterViewInit {
 
                 var startmode = 0
 
-                if (that.startList.indexOf(objjson.id) < 0) { startmode = 4 }
+                if (that.startList.indexOf(objjson['__zone_symbol__value'].id) < 0) { startmode = 4 }
                 changeDisplay(layer, startmode)
 
                 // Change to objects
-                that.layerDict[objjson.id] = [layer, startmode];
+                that.layerDict[objjson['__zone_symbol__value'].id] = [layer, startmode];
+                console.log(addr)
+                
                 that.map.closePopup();
 
                 layer.on('click', function (e) {
 
-                  if (!("link" in objjson)) {
-                    objjson.link = makeLink(objjson);
 
-                    if (objjson.subentities.length > 0) {
-                      objjson.subentities.forEach(j => {
-                        objjson.loadedSubentities.push(findData(j))
+                  // Soft url change (does not reload page)
+                  that.location.replaceState("/map/" + objjson['__zone_symbol__value'].id);
+
+                  if (!("link" in objjson['__zone_symbol__value'])) {
+                    objjson['__zone_symbol__value'].link = makeLink(objjson['__zone_symbol__value']);
+
+                    if (objjson['__zone_symbol__value'].subentities.length > 0) {
+                      objjson['__zone_symbol__value'].subentities.forEach(j => {
+                        objjson['__zone_symbol__value'].loadedSubentities.push(findData(j))
                         //console.log(objjson.loadedSubentities)
                       })
-                      objjson.loadedSubentities.forEach(j => {
+
+                      objjson['__zone_symbol__value'].loadedSubentities.forEach(j => {
+                        console.log("about to put on map:" + j.id)
                         putOnMap(j)
                       })
-                      }
+
+                  // Is a parent, not yet selected, so when it is clicked, it's popup stays the same, but we get it's children turn light green
+                  if (that.layerDict[addr][1] == 1) {
+                    that.layerDict[addr][1] = 2;
+                    changeDisplay(that.layerDict[addr][0], that.layerDict[addr][1]);
+
+
+                    if (objjson['__zone_symbol__value'].subentities.length > 0) {
+                      objjson['__zone_symbol__value'].subentities.forEach(j => {
+                        that.layerDict[j][1] = 4;
+                        changeDisplay(that.layerDict[j][0], that.layerDict[j][1]);
+
+                      })
+
                     }
 
                   // Is a parent that has been selected, now that it is is selected again it will hide all children and go back to normal
@@ -188,9 +221,9 @@ export class MapComponent implements AfterViewInit {
                     that.layerDict[addr][1] = 1;
                     changeDisplay(layer, that.layerDict[addr][1]);
 
-                    if (objjson.subentities.length > 0) {
+                    if (objjson['__zone_symbol__value'].subentities.length > 0) {
                       //for (var j in that.childDict[addr]) {
-                      objjson.loadedSubentities.forEach(j => {
+                      objjson['__zone_symbol__value'].loadedSubentities.forEach(j => {
                         console.log("About to hide: " + j.id)
                         console.log(that.layerDict)
                         that.layerDict[j.id][1] = 3;
@@ -204,7 +237,7 @@ export class MapComponent implements AfterViewInit {
 
                   if (that.lock) {
                     that.map.closePopup();
-                    popup.setContent(objjson.link);
+                    popup.setContent(objjson['__zone_symbol__value'].link);
                     popup.setLatLng(e.latlng).openOn(that.map);
                     // Soft url change (does not reload page)
                     that.location.replaceState("/map?id=" + objjson.id);
@@ -212,7 +245,7 @@ export class MapComponent implements AfterViewInit {
 
                   else {
                     //popup.setContent(feature.properties.name);
-                    popup.setContent(objjson.name);
+                    popup.setContent(objjson['__zone_symbol__value'].name);
                   }
                 });
 
@@ -232,7 +265,7 @@ export class MapComponent implements AfterViewInit {
 
                     popup.setLatLng(e.latlng).openOn(that.map);
                     //popup.setContent(feature.properties.name);
-                    popup.setContent(objjson.name);
+                    popup.setContent(objjson['__zone_symbol__value'].name);
                   };
 
 
@@ -273,6 +306,7 @@ export class MapComponent implements AfterViewInit {
         });
 
         return mapFeature
+
       }
 
 
@@ -286,12 +320,13 @@ export class MapComponent implements AfterViewInit {
       var feature = that.startLayer.getLayer(that.startEntity)
       console.log(feature.getLatLng)
 
-      function findData(id) {
+      async function findData(id) {
+        /*
         var obj = null
         $.ajax({
           'async': false,
           'global': false,
-          'url': that.dataRoot + `reporting_entities/` + id + `.json`,
+          'url': that.dataRoot, //+ `reporting_entities/` + id + `.json`,
           'dataType': "json",
           'success': function (data) {
             obj = data;
@@ -301,6 +336,20 @@ export class MapComponent implements AfterViewInit {
           }
         });
         return obj
+        */
+       var jsondata
+       that.http.post("http://127.0.0.1:5000/json", {ent_id: id})
+       .subscribe(result => {
+         console.log(result)
+         //return result
+         //this.jsondata = {}
+         jsondata = result;
+         //console.log(this.geojson)
+         //return this.geojson
+       });
+       await delay(100)
+       return jsondata
+       //return this.geojson
       }
 
       function resolveAfter2Seconds(x) {
