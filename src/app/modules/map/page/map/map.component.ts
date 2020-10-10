@@ -95,7 +95,7 @@ export class MapComponent implements AfterViewInit {
     });
 
     (async () => {
-      this.http.post("http://127.0.0.1:5000/mapstart", null)
+      this.http.get("http://127.0.0.1:5000/mapstart")
         .subscribe(result => {
           console.log(result)
           this.startList = result;
@@ -105,7 +105,7 @@ export class MapComponent implements AfterViewInit {
       await delay(200);
       console.log(this.startList)
 
-      this.http.post("http://127.0.0.1:5000/mapchild", null)
+      this.http.get("http://127.0.0.1:5000/mapchild")
         .subscribe(result => {
           console.log(result)
           this.childList = result;
