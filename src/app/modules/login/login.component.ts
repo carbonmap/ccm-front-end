@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
     console.log(this.loginUserData)
     this.http.post("http://127.0.0.1:5000/login", this.loginUserData)
       .subscribe((result) => {
-        console.warn("result", result)
+        console.log("result", result)
       })
   }
 }

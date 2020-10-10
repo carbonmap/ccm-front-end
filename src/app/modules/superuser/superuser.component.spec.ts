@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MapComponent } from './map.component';
+import { SuperuserComponent } from './superuser.component';
 
-describe('MapComponent', () => {
-  let component: MapComponent;
-  let fixture: ComponentFixture<MapComponent>;
+describe('SuperuserComponent', () => {
+  let component: SuperuserComponent;
+  let fixture: ComponentFixture<SuperuserComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [MapComponent]
+      declarations: [ SuperuserComponent ]
     })
-      .compileComponents();
+    .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MapComponent);
+    fixture = TestBed.createComponent(SuperuserComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

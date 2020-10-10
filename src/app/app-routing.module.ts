@@ -5,6 +5,8 @@ import { RegisterComponent } from './modules/register/register.component';
 import { LoginComponent } from './modules/login/login.component';
 import { AddentComponent } from './modules/addent/addent.component';
 import { AccComponent } from '@modules/acc/acc.component';
+import { SuperuserComponent } from '@modules/superuser/superuser.component';
+
 const routes: Routes = [
   {
     path: '',
@@ -35,9 +37,13 @@ const routes: Routes = [
 
       {
         path: 'acc', component: AccComponent
+      },
+      {
+        path: 'addent', component: AddentComponent
+      },
+      {
+        path: 'superuser', component: SuperuserComponent,
       }
-
-
     ],
   },
 ];

@@ -12,9 +12,10 @@ import { ComponentNameComponent } from './component-name/component-name.componen
 import { HttpClientModule } from '@angular/common/http';
 import { AddentComponent } from './modules/addent/addent.component';
 import { AccComponent } from './modules/acc/acc.component';
+import { SuperuserComponent } from './modules/superuser/superuser.component';
 
 @NgModule({
-  declarations: [AppComponent, AppCustomLayoutComponent, HeaderComponent, RegisterComponent, LoginComponent, ComponentNameComponent, AddentComponent, AccComponent],
+  declarations: [AppComponent, AppCustomLayoutComponent, HeaderComponent, RegisterComponent, LoginComponent, ComponentNameComponent, AddentComponent, AccComponent, SuperuserComponent],
   imports: [HttpClientModule, BrowserModule, FormsModule, ReactiveFormsModule, AppRoutingModule, NgbModule],
   providers: [HttpClientModule],
   bootstrap: [AppComponent],

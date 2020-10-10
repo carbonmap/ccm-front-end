@@ -1,0 +1,25 @@
+<div class="padding pt-4">
+    <div class="row pt-5">
+        <div class="col-md-6 mx-auto">
+            <div class="card rounded-0">
+                <div class="card-header">
+                    <h3 class="mb-0">Super-User Dashboard</h3>
+                </div>
+                <div class="card-body">
+                    <div class="limbo">
+                        <strong>Limbo files:</strong>
+                        <div class="items" *ngFor="let file of limbo">
+                            {{file}} <button (click)="move(file)" class="approve">Approve</button>
+                        </div>
+                    </div>
+                    <div class="confirmed">
+                        <strong>Confirmed files:</strong>
+                        <div class="items" *ngFor="let file of confirmed">
+                            {{file}} <button (click)="move(file)" class="remove">Remove</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
