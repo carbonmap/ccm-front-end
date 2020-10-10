@@ -3,6 +3,8 @@ import * as L from 'leaflet';
 
 import { AfterViewInit, Component } from '@angular/core';
 
+import { Location } from '@angular/common';
+
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
@@ -20,8 +22,7 @@ export class MapComponent implements AfterViewInit {
   private startList
   private childList
 
-  constructor() {
-  }
+  constructor(private location: Location){ }
 
   ngAfterViewInit(): void {
     this.initialize()
@@ -92,6 +93,7 @@ export class MapComponent implements AfterViewInit {
     // Will have to generate this in next iteration
     this.startList = findData("index")
     console.log(this.startList)
+    this.startList = ["uk.ac.cam.kings"]
 
     this.childList = ["uk.ac.cam.st-edmunds.white-cottage", "uk.ac.cam.st-edmunds.norfolk-building", "uk.ac.cam.st-edmunds.richard-laws", "uk.ac.cam.kings.kingsparade", "uk.ac.cam.kings.spalding", "uk.ac.cam.kings.kingsfield", "uk.ac.cam.kings.garden", "uk.ac.cam.kings.grasshopper", "uk.ac.cam.kings.cranmer", "uk.ac.cam.kings.st-edwards", "uk.ac.cam.kings.tcr", "uk.ac.cam.kings.market", "uk.ac.cam.kings.plodge", "uk.ac.cam.kings.bodleys", "uk.ac.cam.kings.old-site", "uk.ac.cam.kings.provosts-lodge", "uk.ac.cam.kings.webbs", "uk.ac.cam.kings.keynes", "uk.ac.cam.kings.a-staircase", "uk.ac.cam.kings.wilkins"]
 
@@ -127,8 +129,11 @@ export class MapComponent implements AfterViewInit {
               that.map.closePopup();
 
               layer.on('click', function (e) {
+
+                // Soft url change (does not reload page)
+                that.location.replaceState("/map/" + objjson.id);
+
                 if (!("link" in objjson)) {
-                  console.log("asdf")
                   objjson.link = makeLink(objjson);
 
                   if (objjson.subentities.length > 0) {
