@@ -11,8 +11,9 @@ npm install -g @angular/cli
 npm install --save-dev @angular-devkit/build-angular
 ```
 3. Include all required node modules in the project
+Note not `npm install` so we are using a consistent set of versions of modules
 ```
-npm install
+npm ci
 ```
 4. `ng build`
 5. `ng serve`
@@ -29,8 +30,10 @@ npm install -g @angular/cli
 npm install --save-dev @angular-devkit/build-angular
 ```
 3. Include all required node modules in the project
+
+Note not `npm install` so we are using a consistent set of versions of modules
 ```
-npm install
+npm ci
 ```
 
 ## Emulate data server
