@@ -4,10 +4,7 @@ import * as L from 'leaflet';
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 
 import { ActivatedRoute } from '@angular/router';
-<<<<<<< HEAD
-=======
 import { DataModule } from 'src/app/data/data.module'
->>>>>>> half merge
 import { HttpClient } from '@angular/common/http';
 import { HttpClientModule } from '@angular/common/http';
 import { Location } from '@angular/common';
@@ -33,11 +30,8 @@ export class MapComponent implements AfterViewInit {
   private configUrl
   private childList
   private startEntity
-<<<<<<< HEAD
   private geojson
   private jsondata
-=======
->>>>>>> half merge
 
   constructor(
     private location: Location,
@@ -108,7 +102,6 @@ export class MapComponent implements AfterViewInit {
     }
 
     this.startEntity = this.route.snapshot.queryParamMap.get('id')
-    console.log(this.startEntity)
 
     this.layerDict = {};
 
@@ -116,63 +109,23 @@ export class MapComponent implements AfterViewInit {
       that.lock = !that.lock
     });
 
-    // Remove if not needed
-<<<<<<< HEAD
-    this.startList = findData("index")
-    //(async () => {
-    //  this.http.post("http://127.0.0.1:5000/mapstart", null)
-    //    .subscribe(result => {
-    //      console.log(result)
-    //      this.startList = result;
-    //      console.log(this.startList)
-    //    });
-//
-    //  await delay(200);
-    //  console.log(this.startList)
-//
-    //  this.http.post("http://127.0.0.1:5000/mapchild", null)
-    //    .subscribe(result => {
-    //      console.log(result)
-    //      this.childList = result;
-    //      console.log(this.childList)
-    //    });
-//
-    //  await delay(200);
-    //  console.log(this.childList)
-=======
     (async () => {
       this.http.post("http://127.0.0.1:5000/mapstart", null)
         .subscribe(result => {
-          console.log(result)
           this.startList = result;
-          console.log(this.startList)
         });
 
       await delay(200);
-      console.log(this.startList)
 
       this.http.post("http://127.0.0.1:5000/mapchild", null)
         .subscribe(result => {
-          console.log(result)
           this.childList = result;
-          console.log(this.childList)
+          console.log(result)
         });
 
       await delay(200);
-      console.log(this.childList)
->>>>>>> half merge
-
-      this.childList = ["uk.ac.cam.st-edmunds.white-cottage", "uk.ac.cam.st-edmunds.norfolk-building", "uk.ac.cam.st-edmunds.richard-laws", "uk.ac.cam.kings.kingsparade", "uk.ac.cam.kings.spalding", "uk.ac.cam.kings.kingsfield", "uk.ac.cam.kings.garden", "uk.ac.cam.kings.grasshopper", "uk.ac.cam.kings.cranmer", "uk.ac.cam.kings.st-edwards", "uk.ac.cam.kings.tcr", "uk.ac.cam.kings.market", "uk.ac.cam.kings.plodge", "uk.ac.cam.kings.bodleys", "uk.ac.cam.kings.old-site", "uk.ac.cam.kings.provosts-lodge", "uk.ac.cam.kings.webbs", "uk.ac.cam.kings.keynes", "uk.ac.cam.kings.a-staircase", "uk.ac.cam.kings.wilkins"]
 
       async function putOnMap(objjson) {
-<<<<<<< HEAD
-        await delay(1000);
-        var geo
-        console.log(objjson['__zone_symbol__value'])
-        let addr = objjson['__zone_symbol__value'].id
-        console.log(addr)
-=======
-
 
         await delay(1000);
         var geo
@@ -181,49 +134,23 @@ export class MapComponent implements AfterViewInit {
           id: addr,
           marker: null
         }
->>>>>>> half merge
 
         $.ajaxSetup({
           'async': false,
         });
-        //$.getJSON(that.dataRoot + "/geojson/" + addr + ".geojson", function (geojson) {
           that.http.post("http://127.0.0.1:5000/data", {id: addr})
-<<<<<<< HEAD
-            .subscribe(result => {
-              console.log(result)
-              geo = result;
-              console.log(geo)
-            });
-          
-          await delay(200);
-          console.log(geo)
-
-          L.geoJSON(geo,
-=======
           .subscribe(result => {
-            console.log(result)
             geo = result;
-            console.log(geo)
           });
         
         await delay(200);
-        console.log(geo)
           
-          mapFeature.marker = L.geoJSON(geo,
-
->>>>>>> half merge
-            {
+        mapFeature.marker = L.geoJSON(geo, {
               _onEachFeature: function (feature, layer) {
 
-<<<<<<< HEAD
-                console.log(feature)
-                objjson['__zone_symbol__value'].loadedSubentities = []
-
-                layer._leaflet_id = mapFeature.id
-=======
-                console.log(feature);
                 objjson['__zone_symbol__value'].loadedSubentities = [];
->>>>>>> half merge
+
+                layer._leaflet_id = mapFeature.id;
 
                 var popup = new L.Popup({
                   autoPan: false,
@@ -233,95 +160,28 @@ export class MapComponent implements AfterViewInit {
 
                 var startmode = 0;
 
-<<<<<<< HEAD
-                if (that.startList.indexOf(objjson['__zone_symbol__value'].id) < 0) { startmode = 4 }
-                changeDisplay(layer, startmode)
-
-                // Change to objects
-                that.layerDict[objjson['__zone_symbol__value'].id] = [layer, startmode];
-                console.log(addr)
-                
-=======
-                if (that.startList.indexOf(objjson.id) < 0) { startmode = 4; }
+                if (that.startList.indexOf(objjson['__zone_symbol__value'].id) < 0) { startmode = 4; }
                 changeDisplay(layer, startmode);
 
                 // Change to objects
-                that.layerDict[objjson.id] = [layer, startmode];
->>>>>>> half merge
+                that.layerDict[objjson['__zone_symbol__value'].id] = [layer, startmode];
+
                 that.map.closePopup();
 
                 layer.on('click', function (e) {
 
-
                   // Soft url change (does not reload page)
-                  that.location.replaceState("/map/" + objjson['__zone_symbol__value'].id);
+                  that.location.replaceState("/map?id=" + objjson['__zone_symbol__value'].id);
 
                   if (!("link" in objjson['__zone_symbol__value'])) {
                     objjson['__zone_symbol__value'].link = makeLink(objjson['__zone_symbol__value']);
 
                     if (objjson['__zone_symbol__value'].subentities.length > 0) {
                       objjson['__zone_symbol__value'].subentities.forEach(j => {
-<<<<<<< HEAD
-                        objjson['__zone_symbol__value'].loadedSubentities.push(findData(j))
-                        //console.log(objjson.loadedSubentities)
-                      })
-
-                      objjson['__zone_symbol__value'].loadedSubentities.forEach(j => {
-                        console.log("about to put on map:" + j.id)
-                        putOnMap(j)
-                      })
-
-                  // Is a parent, not yet selected, so when it is clicked, it's popup stays the same, but we get it's children turn light green
-                  if (that.layerDict[addr][1] == 1) {
-                    that.layerDict[addr][1] = 2;
-                    changeDisplay(that.layerDict[addr][0], that.layerDict[addr][1]);
-
-
-                    if (objjson['__zone_symbol__value'].subentities.length > 0) {
-                      objjson['__zone_symbol__value'].subentities.forEach(j => {
-                        that.layerDict[j][1] = 4;
-                        changeDisplay(that.layerDict[j][0], that.layerDict[j][1]);
-
-                      })
-
-                    }
-
-                  // Is a parent that has been selected, now that it is is selected again it will hide all children and go back to normal
-                  else if (that.layerDict[addr][1] == 2) {
-                    that.layerDict[addr][1] = 1;
-                    changeDisplay(layer, that.layerDict[addr][1]);
-
-                    if (objjson['__zone_symbol__value'].subentities.length > 0) {
-                      //for (var j in that.childDict[addr]) {
-                      objjson['__zone_symbol__value'].loadedSubentities.forEach(j => {
-                        console.log("About to hide: " + j.id)
-                        console.log(that.layerDict)
-                        that.layerDict[j.id][1] = 3;
-                        changeDisplay(that.layerDict[j.id][0], that.layerDict[j.id][1]);
-
-                      })
-                    }
-                  }
-
-                  that.lock = !that.lock;
-
-                  if (that.lock) {
-                    that.map.closePopup();
-                    popup.setContent(objjson['__zone_symbol__value'].link);
-                    popup.setLatLng(e.latlng).openOn(that.map);
-                    // Soft url change (does not reload page)
-                    that.location.replaceState("/map?id=" + objjson.id);
-                  }
-
-                  else {
-                    //popup.setContent(feature.properties.name);
-                    popup.setContent(objjson['__zone_symbol__value'].name);
-=======
                         objjson['__zone_symbol__value'].loadedSubentities.push(findData(j));
-                        //console.log(objjson.loadedSubentities)
                       });
+
                       objjson['__zone_symbol__value'].loadedSubentities.forEach(j => {
-                        console.log("about to put on map:" + j.id);
                         putOnMap(j);
                       });
 
@@ -329,15 +189,17 @@ export class MapComponent implements AfterViewInit {
                       if (that.layerDict[addr][1] == 1) {
                         that.layerDict[addr][1] = 2;
                         changeDisplay(that.layerDict[addr][0], that.layerDict[addr][1]);
+                        
+                        console.log(objjson['__zone_symbol__value'].subentities.length)
 
                         if (objjson['__zone_symbol__value'].subentities.length > 0) {
                           objjson['__zone_symbol__value'].subentities.forEach(j => {
+                            console.log(that.layerDict[j][1])
                             that.layerDict[j][1] = 4;
                             changeDisplay(that.layerDict[j][0], that.layerDict[j][1]);
-
                           });
-                        }
 
+                        }
 
 
                         // Is a parent that has been selected, now that it is is selected again it will hide all children and go back to normal
@@ -363,6 +225,8 @@ export class MapComponent implements AfterViewInit {
                           that.map.closePopup();
                           popup.setContent(objjson['__zone_symbol__value'].link);
                           popup.setLatLng(e.latlng).openOn(that.map);
+                          // Soft url change (does not reload page)
+                          that.location.replaceState("/map?id=" + objjson.id);
                         }
 
                         else {
@@ -371,7 +235,6 @@ export class MapComponent implements AfterViewInit {
                         }
                       }
                     }
->>>>>>> half merge
                   }
                 });
 
@@ -381,6 +244,7 @@ export class MapComponent implements AfterViewInit {
                     that.layerDict[addr][1] = 1;
                     changeDisplay(layer, that.layerDict[addr][1]);
                   }
+
 
                   // Is a child, has just been revealed
                   else if (that.layerDict[addr][1] == 4 && !that.lock) {
@@ -405,6 +269,7 @@ export class MapComponent implements AfterViewInit {
                     changeDisplay(that.layerDict[addr][0], that.layerDict[addr][1]);
                   }
 
+
                   // Is a child, has been revealed but not clicked, so is now going back to 
                   else if (that.layerDict[addr][1] == 5) {
                     that.layerDict[addr][1] = 4;
@@ -426,9 +291,12 @@ export class MapComponent implements AfterViewInit {
 
                 popup.setLatLng([0, 0]).openOn(that.map);
                 that.map.closePopup();
-<<<<<<< HEAD
-              }
-=======
+              },
+              get onEachFeature_1() {
+                return this._onEachFeature;
+              },
+              set onEachFeature_1(value) {
+                this._onEachFeature = value;
               },
               get onEachFeature() {
                 return this._onEachFeature;
@@ -436,100 +304,41 @@ export class MapComponent implements AfterViewInit {
               set onEachFeature(value) {
                 this._onEachFeature = value;
               },
->>>>>>> half merge
             })
             
           mapFeature.marker.addTo(that.map);
-          
-<<<<<<< HEAD
-        });
+
+          if (that.startEntity == mapFeature.id){
+            that.startLayer = mapFeature.marker
+            var feature = that.startLayer.getLayer(that.startEntity)
+            var coords = feature.feature.geometry.coordinates[0][0]
+            if (coords.length == 2){
+              coords = coords.reverse()
+            } else {
+              coords = coords[0].reverse() // Get first right now, change to centroid, or just change to back end
+            }
+            that.map.setView(coords, 16)
+      
+          }
 
         return mapFeature
 
       }
-=======
-        
-
-        return mapFeature
-      };
->>>>>>> half merge
 
 
       Object.keys(that.startList).forEach(function (addr, index) {
         var mapFeature = putOnMap(findData(that.startList[index]))
-<<<<<<< HEAD
-        if (that.startEntity == mapFeature.id){
-          that.startLayer = mapFeature.marker
-        }
-=======
-        //  if (that.startEntity == mapFeature.id){
-        //    that.startLayer = mapFeature.marker
-        //  }
->>>>>>> half merge
+
       });
-      
-      var feature = that.startLayer.getLayer(that.startEntity)
-      console.log(feature.getLatLng)
-
-<<<<<<< HEAD
-      async function findData(id) {
-        /*
-        var obj = null
-        $.ajax({
-          'async': false,
-          'global': false,
-          'url': that.dataRoot, //+ `reporting_entities/` + id + `.json`,
-          'dataType': "json",
-          'success': function (data) {
-            obj = data;
-          },
-          "error": function (jqXHR, exception) {
-            console.log(jqXHR.responseText, id)
-          }
-        });
-        return obj
-        */
-       var jsondata
-       that.http.post("http://127.0.0.1:5000/json", {ent_id: id})
-       .subscribe(result => {
-         console.log(result)
-         //return result
-         //this.jsondata = {}
-         jsondata = result;
-         //console.log(this.geojson)
-         //return this.geojson
-       });
-       await delay(100)
-       return jsondata
-       //return this.geojson
-=======
-
-      var feature = that.startLayer.getLayer(that.startEntity)
-      var coords = feature.feature.geometry.coordinates[0][0]
-      if (coords.length == 2){
-        coords = coords.reverse()
-      } else {
-        coords = coords[0].reverse() // Get first right now, change to centroid, or just change to back end
->>>>>>> half merge
-      }
-      that.map.setView(coords, 16)
-      console.log(coords)
-
 
       async function findData(id) {
         var jsondata
         that.http.post("http://127.0.0.1:5000/json", {ent_id: id})
         .subscribe(result => {
-          console.log(result)
-          //return result
-          //this.jsondata = {}
           jsondata = result;
-          //console.log(this.geojson)
-          //return this.geojson
         });
         await delay(100)
         return jsondata
-        //return this.geojson
        }
 
       function resolveAfter2Seconds(x) {
@@ -550,8 +359,6 @@ export class MapComponent implements AfterViewInit {
 
         that.http.post("http://127.0.0.1:5000/entity_data", {"id": objjson.id})
           .subscribe(result => {
-            console.log(result)
-            // data = result;
             div.innerHTML = "Will request data from " + objjson.id + " " + result
           },
           err=>{}
@@ -559,16 +366,13 @@ export class MapComponent implements AfterViewInit {
 
 
         return div
+        
       }
     }
-<<<<<<< HEAD
-    // )
-    //();
-  //}
-}
-=======
     )
     ();
   }
+  
 }
->>>>>>> half merge
+
+
