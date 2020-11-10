@@ -5,6 +5,7 @@ import { AfterViewInit, Component } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpClient } from '@angular/common/http';
 import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
+import { environment } from '../../../../../environments/environment';
 
 @Component({
   selector: 'app-map',
@@ -38,8 +39,7 @@ export class MapComponent implements AfterViewInit {
       return;
     }
 
-    //this.dataRoot = 'https://data.cambridgecarbonmap.org';
-    this.dataRoot = 'http://localhost:8080/'
+    this.dataRoot = environment.dataBaseUrl+'/';
     this.initialLat = 52.205;
     this.initialLon = 0.1218;
     this.initialZoom = 12.5;
@@ -95,7 +95,7 @@ export class MapComponent implements AfterViewInit {
     });
 
     (async () => {
-      this.http.get("http://127.0.0.1:5000/mapstart")
+      this.http.get(environment.appBaseUrl+"/mapstart")
         .subscribe(result => {
           console.log(result)
           this.startList = result;
@@ -105,7 +105,7 @@ export class MapComponent implements AfterViewInit {
       await delay(200);
       console.log(this.startList)
 
-      this.http.get("http://127.0.0.1:5000/mapchild")
+      this.http.get(environment.appBaseUrl+"/mapchild")
         .subscribe(result => {
           console.log(result)
           this.childList = result;
