@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-superuser',
@@ -19,7 +20,7 @@ export class SuperuserComponent implements OnInit {
   };
 
   showfiles() {
-    this.http.post("http://127.0.0.1:5000/showfiles", this.json)
+    this.http.post(environment.appBaseUrl+"/showfiles", this.json)
       .subscribe((result) => {
         console.log("result", result);
         this.json = JSON.stringify(result);
@@ -36,7 +37,7 @@ export class SuperuserComponent implements OnInit {
 
     this.file_name.name = file // sets the function argument == file_name json's name
 
-    this.http.post("http://127.0.0.1:5000/movefile", this.file_name) // push request with file_name json
+    this.http.post(environment.appBaseUrl+"/movefile", this.file_name) // push request with file_name json
       .subscribe((result) => {
         console.log("The file has been moved", result);
         this.json = JSON.stringify(result);

@@ -4,6 +4,7 @@ import { CustomValidators } from './custom-validators';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpClient } from '@angular/common/http';
 import { Router } from "@angular/router";
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-register',
@@ -72,7 +73,7 @@ export class RegisterComponent {
     this.frmSignup.valueChanges.subscribe(console.log);
     var registrationData = this.frmSignup.value
     console.log(registrationData)
-    this.http.post("http://127.0.0.1:5000/register", registrationData)
+    this.http.post(environment.appBaseUrl+"/register", registrationData)
       .subscribe((result) => {
         console.log("result", result)
         this.json = JSON.stringify(result)
