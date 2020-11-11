@@ -19,6 +19,7 @@ import { environment } from '../../../../../environments/environment';
 })
 export class MapComponent implements AfterViewInit {
   private dataRoot
+  private appRoot
   private initialLat
   private initialLon
   private initialZoom
@@ -50,7 +51,8 @@ export class MapComponent implements AfterViewInit {
       return;
     }
 
-    this.dataRoot = environment.dataBaseUrl+'/';
+    this.dataRoot = environment.dataBaseUrl;
+    this.appRoot = environment.appBaseUrl;
     this.initialLat = 52.205;
     this.initialLon = 0.1218;
     this.initialZoom = 12.5;
@@ -109,14 +111,14 @@ export class MapComponent implements AfterViewInit {
     });
 
     (async () => {
-      this.http.get(environment.appBaseUrl+"/mapstart")
+      this.http.get(this.appRoot+"/mapstart")
         .subscribe(result => {
           this.startList = result;
         });
 
       await delay(200);
 
-      this.http.get(environment.appBaseUrl+"/mapchild")
+      this.http.get(this.appRoot+"/mapchild")
         .subscribe(result => {
           this.childList = result;
           console.log(result)
@@ -137,7 +139,7 @@ export class MapComponent implements AfterViewInit {
         $.ajaxSetup({
           'async': false,
         });
-          that.http.post("http://127.0.0.1:5000/data", {id: addr})
+          that.http.get(that.dataRoot+"/geojson/"+addr+".geojson")
           .subscribe(result => {
             geo = result;
           });
@@ -332,7 +334,7 @@ export class MapComponent implements AfterViewInit {
 
       async function findData(id) {
         var jsondata
-        that.http.post("http://127.0.0.1:5000/json", {ent_id: id})
+        that.http.get(that.dataRoot+"/reporting_entities/"+id+".json")
         .subscribe(result => {
           jsondata = result;
         });
@@ -356,7 +358,7 @@ export class MapComponent implements AfterViewInit {
         //
         var div = document.createElement("div");
 
-        that.http.post("http://127.0.0.1:5000/entity_data", {"id": objjson.id})
+        that.http.get(that.dataRoot+"/reporting_entities/"+objjson.id+".json")
           .subscribe(result => {
             div.innerHTML = "Will request data from " + objjson.id + " " + result
           },
